@@ -8,11 +8,11 @@ jdk:
 services:
 - docker
 
-before_install:
+script: 
+- mvn -q package
+
+after_success:
 - docker build -t sentinel01/springboot-hello-docker:latest ./src/main/docker/
 - docker images
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker push sentinel01/springboot-hello-docker:latest
-
-script: 
-- mvn -q package
